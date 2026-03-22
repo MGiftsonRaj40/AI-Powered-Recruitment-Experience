@@ -19,7 +19,7 @@ Structured, AI-assisted hiring platform built for the Web Design Internship assi
 ### Candidate Experience
 
 <p align="center">
-  <img src="images/6.pngng" alt="Landing page preview" width="48%" />
+  <img src="images/6.png" alt="Landing page preview" width="48%" />
   <img src="images/1.png" alt="AI onboarding preview" width="48%" />
 </p>
 
