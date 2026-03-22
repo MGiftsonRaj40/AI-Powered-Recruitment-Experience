@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Recruitment Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <button class="logo logo-btn" type="button" onclick="goToHomePage()">RecruitAI</button>
+                <div class="nav-menu" id="navMenu">
+                    <div class="nav-links" id="navLinks"></div>
+                    <div class="nav-user">
+                        <span id="pageContext" class="page-context"></span>
+                        <span id="userInfo"></span>
+                        <button id="logoutBtn" class="btn btn-secondary" style="display: none;">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Landing Page -->
+            <div id="landingPage" class="page">
+                <div class="hero">
+                    <h1>Welcome to RecruitAI</h1>
+                    <p>The modern recruitment platform powered by AI</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="goToPage('signupPage')">Get Started</button>
+                        <button class="btn btn-secondary" onclick="goToPage('loginPage')">Login</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Candidate Onboarding -->
+            <div id="onboardingPage" class="page" style="display: none;">
+                <div class="container">
+                    <div class="onboarding-card">
+                        <span class="eyebrow">AI First Onboarding</span>
+                        <h2>Build a profile recruiters can trust without uploading a resume</h2>
+                        <p>RecruitAI turns freeform input into structured hiring data. We help you write clearer experience, suggest skills, generate summaries, track completion, and keep your profile ready to share.</p>
+                        <div class="feature-pill-row">
+                            <span class="feature-pill">AI-assisted writing</span>
+                            <span class="feature-pill">Structured data capture</span>
+                            <span class="feature-pill">Progress tracking</span>
+                            <span class="feature-pill">Shareable profile</span>
+                        </div>
+                        <div class="onboarding-grid">
+                            <div class="onboarding-step">
+                                <strong>1. Tell your story naturally</strong>
+                                <p>Write in plain language. AI will help turn it into structured sections.</p>
+                            </div>
+                            <div class="onboarding-step">
+                                <strong>2. Build proof, not just claims</strong>
+                                <p>Add skills, projects, and education so recruiters can evaluate you faster.</p>
+                            </div>
+                            <div class="onboarding-step">
+                                <strong>3. Publish once you are ready</strong>
+                                <p>Share a live profile link or export a clean resume-style PDF when needed.</p>
+                            </div>
+                        </div>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" onclick="goToPage('profileBuilderPage')">Build your profile</button>
+                            <button class="btn btn-secondary" onclick="goToPage('candidateDashboard')">View dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sign Up Page -->
+            <div id="signupPage" class="page" style="display: none;">
+                <div class="auth-container">
+                    <h2>Create Account</h2>
+                    <form id="signupForm" onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <label for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupName">Full Name</label>
+                            <input type="text" id="signupName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userTypeSelect">I am a:</label>
+                            <select id="userTypeSelect" required>
+                                <option value="">Select...</option>
+                                <option value="candidate">Candidate</option>
+                                <option value="recruiter">Recruiter</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                        <p class="auth-link">Already have an account? <a href="#" onclick="goToPage('loginPage')">Login</a></p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Login Page -->
+            <div id="loginPage" class="page" style="display: none;">
+                <div class="auth-container">
+                    <h2>Login</h2>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <p class="auth-link">Don't have an account? <a href="#" onclick="goToPage('signupPage')">Sign Up</a></p>
+                        <hr>
+                        <p class="demo-info">Demo Login:
+                            <br><strong>Email:</strong> hire-me@anshumat.org
+                            <br><strong>Password:</strong> HireMe@2025!
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Candidate Dashboard -->
+            <div id="candidateDashboard" class="page" style="display: none;">
+                <div class="container">
+                    <h2>Your Profile</h2>
+                    <div class="profile-section">
+                        <div class="profile-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                            <p id="progressText">0% Complete</p>
+                        </div>
+                        <div class="save-sync-row">
+                            <span id="saveStatus" class="save-status">All changes synced</span>
+                        </div>
+                        <div class="profile-buttons">
+                            <button class="btn btn-secondary" onclick="goToPage('onboardingPage')">AI Guide</button>
+                            <button class="btn btn-primary" onclick="goToPage('profileBuilderPage')">Edit Profile</button>
+                            <button class="btn btn-secondary" id="publishBtn" onclick="publishProfile()">Publish Profile</button>
+                            <button class="btn btn-secondary" onclick="generateResumePdf()">Download Resume</button>
+                            <button class="btn btn-secondary" onclick="shareProfileLink()">Share Profile</button>
+                        </div>
+                    </div>
+                    <div class="ai-assistant-panel">
+                        <div>
+                            <span class="eyebrow">AI Assistant</span>
+                            <h3>Strengthen your profile before you publish</h3>
+                            <p>Generate a summary, get role-based recommendations, and keep your structured profile recruiter-ready.</p>
+                        </div>
+                        <div class="ai-assistant-actions">
+                            <button class="btn btn-primary" onclick="generateAISummary()">Generate AI Summary</button>
+                            <button class="btn btn-secondary" onclick="loadAIRecommendations()">Get Role Tips</button>
+                        </div>
+                    </div>
+                    <div id="aiSummaryCard" class="ai-output-card" style="display: none;"></div>
+                    <div id="aiRecommendationsCard" class="ai-output-card" style="display: none;"></div>
+                    <div id="profilePreview" class="profile-preview"></div>
+                </div>
+            </div>
+
+            <!-- Profile Builder -->
+            <div id="profileBuilderPage" class="page" style="display: none;">
+                <div class="container">
+                    <h2>Build Your Profile</h2>
+                    <div class="builder-tabs">
+                        <button class="tab-btn active" onclick="switchTab('basicTab', this)">Basic Info</button>
+                        <button class="tab-btn" onclick="switchTab('experienceTab', this)">Experience</button>
+                        <button class="tab-btn" onclick="switchTab('skillsTab', this)">Skills</button>
+                        <button class="tab-btn" onclick="switchTab('projectsTab', this)">Projects</button>
+                        <button class="tab-btn" onclick="switchTab('educationTab', this)">Education</button>
+                    </div>
+
+                    <!-- Basic Info Tab -->
+                    <div id="basicTab" class="tab-content active">
+                        <form onsubmit="saveBasicInfo(event)">
+                            <div class="form-group">
+                                <label for="headline">Headline</label>
+                                <input type="text" id="headline" placeholder="e.g., Senior Developer">
+                            </div>
+                            <div class="form-group">
+                                <label for="bio">Bio</label>
+                                <textarea id="bio" placeholder="Tell us about yourself..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" id="location" placeholder="City, Country">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" placeholder="+1-555-0000">
+                            </div>
+                            <div class="save-sync-row">
+                                <span id="basicInfoAutosave" class="autosave-hint">Auto-save is on while you type</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" onclick="generateAISummary()">Generate AI Summary</button>
+                            <button type="button" class="btn btn-secondary" onclick="loadAIRecommendations()">Get AI Recommendations</button>
+                        </form>
+                    </div>
+
+                    <!-- Experience Tab -->
+                    <div id="experienceTab" class="tab-content" style="display: none;">
+                        <div id="experienceList"></div>
+                        <div class="ai-helper-box">
+                            <label for="experienceNarrative"><strong>Need help structuring your experience?</strong></label>
+                            <textarea id="experienceNarrative" placeholder="Example: I worked as a frontend intern at Acme for 6 months where I built dashboards, improved performance, and collaborated with designers."></textarea>
+                            <button class="btn btn-secondary" type="button" onclick="structureExperienceWithAI()">AI Structure Experience</button>
+                        </div>
+                        <button class="btn btn-primary" onclick="addExperience()">+ Add Experience</button>
+                        <form id="experienceForm" style="display: none;" onsubmit="saveExperience(event)">
+                            <div class="form-group">
+                                <label for="jobTitle">Job Title</label>
+                                <input type="text" id="jobTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company</label>
+                                <input type="text" id="company" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="duration">Duration (e.g., 2 years)</label>
+                                <input type="text" id="duration" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="jobDesc">Description</label>
+                                <textarea id="jobDesc" placeholder="What did you do?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Experience</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelExperience()">Cancel</button>
+                        </form>
+                    </div>
+
+                    <!-- Skills Tab -->
+                    <div id="skillsTab" class="tab-content" style="display: none;">
+                        <div id="skillsList"></div>
+                        <div class="skill-input">
+                            <input type="text" id="skillInput" placeholder="e.g., Python, React, etc.">
+                            <select id="proficiencySelect">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                                <option value="Expert">Expert</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="addSkill()">Add Skill</button>
+                        </div>
+                        <button class="btn btn-secondary" onclick="getSuggestedSkills()">Get AI Suggestions</button>
+                    </div>
+
+                    <!-- Projects Tab -->
+                    <div id="projectsTab" class="tab-content" style="display: none;">
+                        <div id="projectsList"></div>
+                        <button class="btn btn-primary" onclick="addProject()">+ Add Project</button>
+                        <form id="projectForm" style="display: none;" onsubmit="saveProject(event)">
+                            <div class="form-group">
+                                <label for="projectTitle">Project Title</label>
+                                <input type="text" id="projectTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectDesc">Description</label>
+                                <textarea id="projectDesc" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectUrl">URL (optional)</label>
+                                <input type="url" id="projectUrl">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Project</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelProject()">Cancel</button>
+                        </form>
+                    </div>
+
+                    <!-- Education Tab -->
+                    <div id="educationTab" class="tab-content" style="display: none;">
+                        <div id="educationList"></div>
+                        <button class="btn btn-primary" onclick="addEducation()">+ Add Education</button>
+                        <form id="educationForm" style="display: none;" onsubmit="saveEducation(event)">
+                            <div class="form-group">
+                                <label for="school">School / University</label>
+                                <input type="text" id="school" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="degree">Degree</label>
+                                <input type="text" id="degree" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gradYear">Graduation Year</label>
+                                <input type="number" id="gradYear" min="1950" max="2100" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Education</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelEducation()">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recruiter Dashboard -->
+            <div id="recruiterDashboard" class="page" style="display: none;">
+                <div class="container">
+                    <h2>Candidates</h2>
+                    <div class="recruiter-controls">
+                        <button class="btn btn-primary" onclick="loadCandidates()">Refresh</button>
+                        <button class="btn btn-secondary" onclick="goToPage('compareCandidatesPage')">Compare Selected</button>
+                        <a href="#" onclick="goToPage('recruiterShortlistPage')" class="btn btn-secondary">My Shortlist</a>
+                    </div>
+                    <div id="compareSelectionSummary" class="compare-selection-summary">Select 2 or more candidates to compare.</div>
+                    <div id="candidatesList" class="candidates-grid"></div>
+                </div>
+            </div>
+
+            <!-- Compare Candidates -->
+            <div id="compareCandidatesPage" class="page" style="display: none;">
+                <div class="container">
+                    <div class="page-heading-row">
+                        <div>
+                            <h2>Compare Candidates</h2>
+                            <p class="section-subtitle">Review shortlisted strengths, skills, and experience side by side.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="goToPage('recruiterDashboard')">&larr; Back</button>
+                    </div>
+                    <div id="compareCandidatesContent" class="compare-grid"></div>
+                </div>
+            </div>
+
+            <!-- Candidate Detail (Recruiter View) -->
+            <div id="recruiterCandidateDetail" class="page" style="display: none;">
+                <div class="container">
+                    <button class="btn btn-secondary" onclick="goToPage('recruiterDashboard')">&larr; Back</button>
+                    <div id="candidateDetailContent" class="candidate-detail"></div>
+                </div>
+            </div>
+
+            <!-- Recruiter Shortlist -->
+            <div id="recruiterShortlistPage" class="page" style="display: none;">
+                <div class="container">
+                    <h2>My Shortlist</h2>
+                    <button class="btn btn-secondary" onclick="goToPage('recruiterDashboard')">&larr; Back</button>
+                    <div id="shortlistContent" class="shortlist-grid"></div>
+                </div>
+            </div>
+
+            <!-- Confirmation -->
+            <div id="confirmationPage" class="page" style="display: none;">
+                <div class="container">
+                    <div class="confirmation-card">
+                        <span class="eyebrow">Submission Ready</span>
+                        <h2>Your profile is live</h2>
+                        <p>Your structured profile is now visible to recruiters. You can keep improving it, share the public link, or export a resume PDF any time.</p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" onclick="shareProfileLink()">Share Profile</button>
+                            <button class="btn btn-secondary" onclick="generateResumePdf()">Download Resume</button>
+                            <button class="btn btn-secondary" onclick="goToPage('candidateDashboard')">Back to Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Public Profile -->
+            <div id="publicProfilePage" class="page" style="display: none;">
+                <div class="container">
+                    <div class="page-heading-row">
+                        <div>
+                            <h2>Candidate Profile</h2>
+                            <p class="section-subtitle">Shared public profile link</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="goToHomePage()">Go Home</button>
+                    </div>
+                    <div id="publicProfileContent" class="candidate-detail"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
