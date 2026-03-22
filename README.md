@@ -2,6 +2,39 @@
 
 Structured, AI-assisted hiring platform built for the Web Design Internship assignment. The product replaces resume upload with guided profile creation, recruiter-friendly candidate views, and lightweight AI support across profile building.
 
+## Tech Stack
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Frontend-HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  <img src="https://img.shields.io/badge/Styling-CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  <img src="https://img.shields.io/badge/Client-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=111111" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/Backend-Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/ODM-MongoEngine-13AA52?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoEngine" />
+  <img src="https://img.shields.io/badge/Database-MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/Auth-JWT-111827?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT" />
+</p>
+
+## Product Preview
+
+### Candidate Experience
+
+<p align="center">
+  <img src="images/6.pngng" alt="Landing page preview" width="48%" />
+  <img src="images/1.png" alt="AI onboarding preview" width="48%" />
+</p>
+
+<p align="center">
+  <img src="images/2.png" alt="Profile builder preview" width="48%" />
+  <img src="images/3.png" alt="Profile preview screen" width="48%" />
+</p>
+
+### Recruiter Experience
+
+<p align="center">
+  <img src="images/4.png" alt="Recruiter dashboard preview" width="48%" />
+  <img src="images/5.png" alt="Recruiter shortlist and comparison preview" width="48%" />
+</p>
+
 ## Assignment Fit
 
 ### 1. Problem Understanding
@@ -157,7 +190,7 @@ This is the center of the product:
 - Notes
 - Remove from shortlist
 
-## Tech Stack
+### Stack Breakdown
 - Frontend: HTML, CSS, Vanilla JavaScript
 - Backend: Flask + MongoEngine
 - Database: MongoDB
